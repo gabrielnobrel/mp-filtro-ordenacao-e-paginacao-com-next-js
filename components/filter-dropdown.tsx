@@ -1,3 +1,4 @@
+"use client";
 
 import {
   DropdownMenu,
@@ -7,10 +8,16 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
-import { Button } from '@/components/ui/button';
-import { Filter } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Filter } from "lucide-react";
+
+const options = [
+  { label: "Todos", value: "" },
+  { label: "Pendente", value: "pending" },
+  { label: "Completo", value: "completed" },
+];
 
 export default function FilterDropdown() {
   return (
@@ -18,7 +25,7 @@ export default function FilterDropdown() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          size={'default'}
+          size={"default"}
           className="flex gap-2 text-slate-600"
         >
           <Filter className="h-4 w-4" />
@@ -30,13 +37,11 @@ export default function FilterDropdown() {
         <DropdownMenuLabel>Filtrar por:</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value="">
-          <DropdownMenuRadioItem value="">Todos</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="pending">
-            Pendente
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="completed">
-            Completo
-          </DropdownMenuRadioItem>
+          {options.map((option) => (
+            <DropdownMenuRadioItem key={option.value} value={option.value}>
+              {option.label}
+            </DropdownMenuRadioItem>
+          ))}
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
