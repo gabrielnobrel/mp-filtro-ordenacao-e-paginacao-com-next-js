@@ -16,22 +16,19 @@ import { redirect } from "next/navigation";
 export default async function Component({
   searchParams,
 }: {
-  searchParams: any;
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }) {
-  const defaultParams = {
-    page: 1,
-  };
+  const resolvedParams = await searchParams;
 
-  const data = await getOrders("");
-
-  if (!searchParams || !Object.keys(searchParams).length) {
-    // console.log("No search params, redirecting to default");
-    const params = new URLSearchParams(
-      Object.entries(defaultParams).map(([k, v]) => [k, String(v)]),
-    );
-
-    redirect(`?${params.toString()}`);
+  if (!resolvedParams.page) {
+    redirect(`?page=1`);
   }
+
+  const query = new URLSearchParams(
+    resolvedParams as Record<string, string>,
+  ).toString();
+
+  const data = await getOrders(query);
 
   return (
     <main className="container px-1 py-10 md:p-10">
