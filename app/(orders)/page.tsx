@@ -46,7 +46,7 @@ export default async function Component({
         <CardContent>
           <OrdersTable {...data} />
           <div className="mt-8">
-            <Pagination />
+            <Pagination meta={data.meta} searchParams={resolvedParams} />
           </div>
         </CardContent>
       </Card>
