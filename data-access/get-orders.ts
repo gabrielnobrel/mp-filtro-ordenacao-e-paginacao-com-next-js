@@ -16,7 +16,7 @@ type OrdersLinks = {
   next: string | null;
 };
 
-type OrdersMeta = {
+export type OrdersMeta = {
   current_page: number;
   from: number;
   last_page: number;
