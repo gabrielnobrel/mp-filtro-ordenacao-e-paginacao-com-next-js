@@ -44,14 +44,11 @@ export type OrderDTO = Pick<
 
 const url = process.env.API_URL;
 
-export const getOrders = async (query: string): Promise<OrdersResponse> => {
-  if (!query) {
-    query = new URLSearchParams({
-      page: "3",
-      per_page: "10",
-    }).toString();
-  }
-  const response = await fetch(`${url}/orders?${query}`);
+export const getOrders = async (query?: string): Promise<OrdersResponse> => {
+  const params = query || new URLSearchParams({ page: "1" }).toString();
+
+  const response = await fetch(`${url}/orders?${params}`);
+
   if (!response.ok) {
     throw new Error("Failed to fetch orders");
   }
