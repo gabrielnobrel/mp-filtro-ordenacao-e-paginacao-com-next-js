@@ -42,6 +42,12 @@ export type OrderDTO = Pick<
   | "amount_in_cents"
 >;
 
+export const ORDER_STATUS_LABELS: Record<Order["status"], string> = {
+  pending: "Pendente",
+  completed: "Completo",
+  cancelled: "Cancelado",
+};
+
 const url = process.env.API_URL;
 
 export const getOrders = async (query?: string): Promise<OrdersResponse> => {

@@ -8,7 +8,11 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "./ui/badge";
 import { ChevronsUpDown } from "lucide-react";
-import { Order, OrdersResponse } from "@/data-access/get-orders";
+import {
+  Order,
+  ORDER_STATUS_LABELS,
+  OrdersResponse,
+} from "@/data-access/get-orders";
 
 export default function OrdersTable(data: OrdersResponse) {
   return (
@@ -40,7 +44,7 @@ export default function OrdersTable(data: OrdersResponse) {
             </TableCell>
             <TableCell>
               <Badge className={`text-xs`} variant="outline">
-                {order.status}
+                {ORDER_STATUS_LABELS[order.status]}
               </Badge>
             </TableCell>
             <TableCell className="hidden md:table-cell">
