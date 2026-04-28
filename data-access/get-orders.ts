@@ -3,7 +3,7 @@ export type Order = {
   customer_name: string;
   customer_email: string;
   order_date: string;
-  amount_in_cents: number;
+  amount_in_cents: string;
   status: "pending" | "completed" | "cancelled";
   created_at: string;
   updated_at: string;
@@ -59,5 +59,23 @@ export const getOrders = async (query?: string): Promise<OrdersResponse> => {
     throw new Error("Failed to fetch orders");
   }
 
-  return response.json();
+  const json: OrdersResponse = await response.json();
+
+  return {
+    ...json,
+    data: json.data.map((order) => ({
+      ...order,
+      order_date: new Date(order.order_date).toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }),
+      amount_in_cents: (
+        parseInt(order.amount_in_cents, 10) / 100
+      ).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }),
+    })),
+  };
 };
