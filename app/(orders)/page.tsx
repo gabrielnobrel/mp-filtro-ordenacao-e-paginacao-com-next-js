@@ -21,7 +21,7 @@ export default async function Component({
   const resolvedParams = await searchParams;
 
   if (!resolvedParams.page) {
-    redirect(`?page=1`);
+    redirect(`?page=1&sort=order_date`);
   }
 
   const query = new URLSearchParams(
